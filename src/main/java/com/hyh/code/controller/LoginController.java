@@ -4,10 +4,10 @@ import com.hyh.code.base.RetResponse;
 import com.hyh.code.base.RetResult;
 import com.hyh.code.pojo.SysUser;
 import com.hyh.code.service.impl.LoginService;
-import com.hyh.code.utils.MD5Util;
 import com.hyh.code.utils.RedisUtil;
 import com.hyh.code.utils.TokenUtils;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * @ClassName LoginController
@@ -26,9 +25,9 @@ import java.util.Map;
  * @Version 1.0
  **/
 @RestController
-@Slf4j
 public class LoginController {
 
+    static Logger log = LoggerFactory.getLogger(LoginController.class);
     @Autowired
     private LoginService loginService;
 
@@ -59,7 +58,7 @@ public class LoginController {
         //userId
         Integer userId = user.getId();
         //存放Redis
-        redisUtil.set(token, "login_"+String.valueOf(userId));
+        redisUtil.set(token, String.valueOf(userId));
         log.info("【用户信息token存放在Redis中.....key为】：{},value为：{}", token, "login_"+String.valueOf(userId));
 
         return RetResponse.makeOKRsp(token);

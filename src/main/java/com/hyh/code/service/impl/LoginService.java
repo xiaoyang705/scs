@@ -6,6 +6,7 @@ import com.hyh.code.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class LoginService {
 
-    @Autowired(required = false)
+    @Resource
     private SysUserMapper sysUserMapper;
 
     //使用RedisTemplate操作Redis
