@@ -15,7 +15,7 @@ public class RetResponse {
         return new RetResult<T>().setCode(RetCode.FAIL).setMsg(SUCCESS);
     }
 
-    public static <T> RetResult<T> makeRsp(int code, String msg) {
+    public static <T> RetResult<T> makeRsp(RetCode code, String msg) {
         return new RetResult<T>().setCode(code).setMsg(msg);
     }
 

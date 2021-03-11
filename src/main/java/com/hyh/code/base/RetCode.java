@@ -10,6 +10,12 @@ public enum RetCode {
     // 未认证（签名错误）
     UNAUTHORIZED(401),
 
+    // 过期（签名错误）
+    RESCODE_LOGINEXPIRE (1004),
+
+    // 重复登录（签名错误）
+    CODE_LOGINOTHERADDR_ERROR (1014),
+
     // 接口不存在
     NOT_FOUND(404),
 
