@@ -59,7 +59,7 @@ public class LoginController {
         Integer userId = user.getId();
         //存放Redis
         redisUtil.set(token, String.valueOf(userId));
-        log.info("【用户信息token存放在Redis中.....key为】：{},value为：{}", token, "login_"+String.valueOf(userId));
+        log.info("【用户信息token存放在Redis中.....key为】：{},value为：{}", token, String.valueOf(userId));
 
         return RetResponse.makeOKRsp(token);
     }
