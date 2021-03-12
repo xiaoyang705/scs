@@ -7,6 +7,7 @@ import com.hyh.code.utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,9 +24,10 @@ import java.util.Objects;
  * @Date 2021/3/10 23:59
  * @Version 1.0
  **/
-public class AuthorizationInterceptor implements HandlerInterceptor {
+@Component
+public class LoginInterceptor implements HandlerInterceptor {
 
-    static Logger log = LoggerFactory.getLogger(AuthorizationInterceptor.class);
+    static Logger log = LoggerFactory.getLogger(LoginInterceptor.class);
 
     @Autowired
     private RedisUtil redisUtil;
