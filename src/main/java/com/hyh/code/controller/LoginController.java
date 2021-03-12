@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +35,8 @@ public class LoginController {
     @Autowired
     private RedisUtil redisUtil;
 
-
     @PostMapping("/user/login")
+    @ApiOperation(value = "登陆测试接口", notes = "访问此接口，返回hello语句，测试接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username",value = "用户名称",required = true,dataType = "String"),
             @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String")
@@ -46,7 +45,6 @@ public class LoginController {
             @ApiResponse(code = 200, message = "接口返回成功状态"),
             @ApiResponse(code = 500, message = "接口返回未知错误，请联系开发人员调试")
     })
-    @ApiOperation(value = "登陆测试接口", notes = "访问此接口，返回hello语句，测试接口")
     public RetResult login(@RequestBody SysUser sysUser){
 
         // 1.验证参数
@@ -76,7 +74,9 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/user/logout")
+
+    @PostMapping(value = "/user/logout")
+    @ApiOperation(value = "注销测试接口", notes = "访问此接口，返回hello语句，测试接口")
     public RetResult logout(HttpServletRequest request) {
         boolean flag = loginService.logout(request);
         if (flag) {

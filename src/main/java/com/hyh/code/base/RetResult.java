@@ -6,11 +6,11 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("通用接口返回对象")
 public class RetResult<T> {
 
-    @ApiModelProperty(required = true,notes = "结果码",example = "200")
+    @ApiModelProperty(required = true,notes = "结果码")
     public int code;
-    @ApiModelProperty(required = true,notes = "返回信息",example = "SUCCESS")
+    @ApiModelProperty(required = true,notes = "返回信息")
     private String msg;
-    @ApiModelProperty(required = false,notes = "返回数据",example = "{\"name\":\"blues\"}")
+    @ApiModelProperty(required = false,notes = "返回数据")
     private T data;
 
     public RetResult<T> setCode(RetCode retCode) {

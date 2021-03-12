@@ -22,7 +22,7 @@ public class TestController {
     @Resource
     private TestService testService;
 
-    @ApiOperation(value = "测试index接口", nickname = "测试IndexController的index接口")
+    @ApiOperation(value = "测试index22接口", nickname = "测试IndexController的index接口")
     @GetMapping("/findAll1")
     public RetResult findAll(){
 
@@ -30,7 +30,7 @@ public class TestController {
         return RetResponse.makeOKRsp(list);
     }
 
-    @ApiOperation(value = "用户登录测试接口2", notes = "用户登录试接口000")
+    @ApiOperation(value = "用户登录测试接口222", notes = "用户登录试接口000")
     @GetMapping("/findByPage")
     public RetResult findByPage(Test test,@RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo,
                                 @RequestParam(defaultValue="1",required=true,value="pageSize") Integer pageSize){
