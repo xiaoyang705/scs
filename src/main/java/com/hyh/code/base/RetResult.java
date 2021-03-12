@@ -1,11 +1,16 @@
 package com.hyh.code.base;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("通用接口返回对象")
 public class RetResult<T> {
 
+    @ApiModelProperty(required = true,notes = "结果码",example = "200")
     public int code;
-
+    @ApiModelProperty(required = true,notes = "返回信息",example = "SUCCESS")
     private String msg;
-
+    @ApiModelProperty(required = false,notes = "返回数据",example = "{\"name\":\"blues\"}")
     private T data;
 
     public RetResult<T> setCode(RetCode retCode) {

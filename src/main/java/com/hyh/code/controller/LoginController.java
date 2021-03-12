@@ -6,6 +6,7 @@ import com.hyh.code.pojo.SysUser;
 import com.hyh.code.service.impl.LoginService;
 import com.hyh.code.utils.RedisUtil;
 import com.hyh.code.utils.TokenUtils;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2021/3/11 0:26
  * @Version 1.0
  **/
+@Api(tags = "HELLO CONTROLLER 测试功能接口")
 @RestController
 public class LoginController {
 
@@ -36,6 +38,15 @@ public class LoginController {
 
 
     @PostMapping("/user/login")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username",value = "用户名称",required = true,dataType = "String"),
+            @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String")
+    })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "接口返回成功状态"),
+            @ApiResponse(code = 500, message = "接口返回未知错误，请联系开发人员调试")
+    })
+    @ApiOperation(value = "登陆测试接口", notes = "访问此接口，返回hello语句，测试接口")
     public RetResult login(@RequestBody SysUser sysUser){
 
         // 1.验证参数
