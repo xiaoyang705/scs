@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyh.code.mapper.BaseParamsMapper">
+  <resultMap id="BaseResultMap" type="com.hyh.code.pojo.BaseParams">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="param_code" jdbcType="VARCHAR" property="param_code" />
+    <result column="param_name" jdbcType="VARCHAR" property="param_name" />
+    <result column="param_value" jdbcType="VARCHAR" property="param_value" />
+    <result column="is_del" jdbcType="INTEGER" property="is_del" />
+  </resultMap>
+</mapper>
