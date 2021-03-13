@@ -38,7 +38,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         InterceptorRegistration ir = registry.addInterceptor(initLoginInterceptor());
         // 拦截路径
-        ir.addPathPatterns("/*");
+        ir.addPathPatterns("/**");
         // 不拦截路径
         List<String> irs = new ArrayList<String>();
         irs.add("/user/login");
