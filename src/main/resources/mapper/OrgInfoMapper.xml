@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyh.code.mapper.OrgInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hyh.code.pojo.OrgInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="org_id" jdbcType="VARCHAR" property="org_id" />
+    <result column="org_name" jdbcType="VARCHAR" property="org_name" />
+    <result column="org_short_name" jdbcType="VARCHAR" property="org_short_name" />
+    <result column="org_type" jdbcType="INTEGER" property="org_type" />
+    <result column="org_taxno" jdbcType="VARCHAR" property="org_taxno" />
+    <result column="org_area" jdbcType="VARCHAR" property="org_area" />
+    <result column="org_address" jdbcType="VARCHAR" property="org_address" />
+    <result column="content_person" jdbcType="VARCHAR" property="content_person" />
+    <result column="content_phone" jdbcType="VARCHAR" property="content_phone" />
+    <result column="service_time" jdbcType="DATE" property="service_time" />
+    <result column="org_status" jdbcType="INTEGER" property="org_status" />
+    <result column="is_del" jdbcType="INTEGER" property="is_del" />
+  </resultMap>
+
+
+  <select id="findUpOrg" resultType="java.util.Map" parameterType="string">
+      SELECT A.up_org_id,B.org_name,B.org_short_name FROM org_content A
+      INNER JOIN org_info B ON B.org_id=A.up_org_id and B.is_del=0
+      WHERE A.org_id=#{org_id}
+  </select>
+
+
+  <select id="findLowOrg"  resultType="java.util.Map" parameterType="string">
+      SELECT A.org_id,B.org_name,B.org_short_name FROM org_content A
+      INNER JOIN org_info B ON B.org_id=A.org_id and B.is_del=0
+      WHERE A.up_org_id=#{org_id}
+  </select>
+
+
+  <select id="findAreaName" resultType="java.lang.String" parameterType="string">
+     select area_name from base_area where area_id=#{area_id}
+  </select>
+</mapper>
