@@ -6,11 +6,19 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="user_name" jdbcType="VARCHAR" property="user_name" />
+    <result column="login_name" jdbcType="VARCHAR" property="login_name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="user_phone" jdbcType="VARCHAR" property="user_phone" />
+    <result column="user_email" jdbcType="VARCHAR" property="user_email" />
+    <result column="user_status" jdbcType="INTEGER" property="user_status" />
+    <result column="org_id" jdbcType="VARCHAR" property="org_id" />
+    <result column="role_id" jdbcType="INTEGER" property="role_id" />
+    <result column="is_del" jdbcType="INTEGER" property="is_del" />
   </resultMap>
 
+
   <select id="login" resultType="com.hyh.code.pojo.SysUser">
-    SELECT * from sys_user where username=#{userName} and password=#{newPassWord}
+    SELECT * from sys_user where login_name=#{login_name} and password=#{password}
   </select>
 </mapper>

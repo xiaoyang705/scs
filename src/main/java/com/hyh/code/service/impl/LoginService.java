@@ -26,8 +26,8 @@ public class LoginService {
     @Autowired
     private RedisUtil redisUtil;
 
-    public SysUser login(String username, String password) {
-        SysUser memberUser = sysUserMapper.login(username, password);
+    public SysUser login(String login_name, String password) {
+        SysUser memberUser = sysUserMapper.login(login_name, password);
         return memberUser;
     }
 

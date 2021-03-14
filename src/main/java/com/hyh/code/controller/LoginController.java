@@ -4,6 +4,7 @@ import com.hyh.code.base.RetResponse;
 import com.hyh.code.base.RetResult;
 import com.hyh.code.pojo.SysUser;
 import com.hyh.code.service.impl.LoginService;
+import com.hyh.code.utils.MD5Util;
 import com.hyh.code.utils.RedisUtil;
 import com.hyh.code.utils.TokenUtils;
 import io.swagger.annotations.*;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName LoginController
@@ -24,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2021/3/11 0:26
  * @Version 1.0
  **/
-@Api(tags = "HELLO CONTROLLER 测试功能接口")
+@Api(tags = "登录相关接口")
 @RestController
 public class LoginController {
 
@@ -36,41 +39,43 @@ public class LoginController {
     private RedisUtil redisUtil;
 
     @PostMapping("/user/login")
-    @ApiOperation(value = "登陆测试接口", notes = "访问此接口，返回hello语句，测试接口")
+    @ApiOperation(value = "登陆接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username",value = "用户名称",required = true,dataType = "String"),
+            @ApiImplicitParam(name = "login_name",value = "用户名称",required = true,dataType = "String"),
             @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String")
     })
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "接口返回成功状态"),
-            @ApiResponse(code = 500, message = "接口返回未知错误，请联系开发人员调试")
-    })
-    public RetResult login(@RequestBody SysUser sysUser){
+    public RetResult login(String login_name,String password){
 
         // 1.验证参数
-        String userName = sysUser.getUsername();
-        if (StringUtils.isEmpty(userName)) {
+        if (StringUtils.isEmpty(login_name)) {
             return RetResponse.makeErrRsp("用户名称不能为空!");
         }
-        String password = sysUser.getPassword();
         if (StringUtils.isEmpty(password)) {
             return RetResponse.makeErrRsp("密码不能为空!");
         }
-        //String newPassWord = MD5Util.encode(password);
 
-        SysUser user = loginService.login(userName, password);
+        //生成token
+        String token = TokenUtils.getToken();
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("token", token);
+        if ("super".equals(login_name) && "super123456".equals(password)){
+            //判断该账号为平台管理员
+            map.put("userType", 1);
+        }else{
+            map.put("userType", 2);
+        }
+
+        SysUser user = loginService.login(login_name, MD5Util.md5(password));
         if (user == null) {
             return RetResponse.makeErrRsp("账号或密码错误!");
         }
-        //生成token
-        String token = TokenUtils.getToken();
         //userId
         Integer userId = user.getId();
         //存放Redis
         redisUtil.set(token, String.valueOf(userId));
         log.info("【用户信息token存放在Redis中.....key为】：{},value为：{}", token, String.valueOf(userId));
-
-        return RetResponse.makeOKRsp(token);
+        map.put("user", user);
+        return RetResponse.makeOKRsp(map);
     }
 
 

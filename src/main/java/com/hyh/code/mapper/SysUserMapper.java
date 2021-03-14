@@ -5,8 +5,18 @@ import com.hyh.code.pojo.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * @author Admin
+ */
 @Mapper
 public interface SysUserMapper extends IBaseMapper<SysUser> {
 
-    SysUser login(@Param("userName") String userName, @Param("newPassWord") String newPassWord);
+    /**
+     * @param login_name
+     * @param password
+     * @return
+     */
+    SysUser login(@Param("login_name") String login_name, @Param("password") String password);
+
+
 }

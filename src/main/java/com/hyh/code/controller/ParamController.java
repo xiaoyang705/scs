@@ -40,7 +40,7 @@ public class ParamController {
             @ApiImplicitParam(name = "pageNo",value = "页码",required = true,dataType = "Integer"),
             @ApiImplicitParam(name = "pageSize",value = "每页显示数",required = true,dataType = "Integer")
     })
-    public RetResult findByPage(@RequestBody BaseParams baseParams, @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo,
+    public RetResult findByPage(BaseParams baseParams, @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo,
                                 @RequestParam(defaultValue="10",required=true,value="pageSize") Integer pageSize){
 
         //分页查询
