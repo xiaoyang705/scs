@@ -93,6 +93,28 @@ public class OrgInfoService {
         }
     }
 
+    public boolean updateOrgInfo(OrgInfo orgInfo) {
+
+
+        if (orgInfoMapper.updateByPrimaryKeySelective(orgInfo) > 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+
+    public boolean deleteOrgInfo(OrgInfo orgInfo) {
+
+        orgInfo.setIs_del(1);
+        if (orgInfoMapper.updateByPrimaryKeySelective(orgInfo) > 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     private String getSystemOrgId() {
         long no = 100000000+redisUtil.incr("orgCount", 1);
         return String.valueOf(no);
