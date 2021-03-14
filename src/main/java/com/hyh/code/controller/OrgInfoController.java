@@ -44,7 +44,7 @@ public class OrgInfoController {
      */
     @ApiOperation(value = "分页获取单位列表")
     @PostMapping("/findByPage")
-    public RetResult findByPage(OrgInfo orgInfo,
+    public RetResult findByPage(@RequestBody(required = false) OrgInfo orgInfo,
                                 @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo,
                                 @RequestParam(defaultValue="10",required=true,value="pageSize") Integer pageSize){
 
@@ -142,7 +142,7 @@ public class OrgInfoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "选择单位",value = "org_id",required = true,dataType = "String")
     })
-    public RetResult showUpOrgList(String org_id){
+    public RetResult showUpOrgList(@RequestBody String org_id){
 
         if (StringUtils.isEmpty(org_id)) {
             return RetResponse.makeErrRsp("参数不能为空!");
@@ -161,12 +161,19 @@ public class OrgInfoController {
     }
 
 
+
+    public RetResult dealUpOrg(@RequestBody Map<String,String> map){
+
+        return RetResponse.makeOKRsp();
+    }
+
+
     @ApiOperation(value = "下级单位页面数据获取")
     @PostMapping("/showLowOrgList")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "选择单位",value = "org_id",required = true,dataType = "String")
     })
-    public RetResult showLowOrgList(String org_id){
+    public RetResult showLowOrgList(@RequestBody String org_id){
 
         if (StringUtils.isEmpty(org_id)) {
             return RetResponse.makeErrRsp("参数不能为空!");
@@ -183,5 +190,9 @@ public class OrgInfoController {
 
         return RetResponse.makeOKRsp(data);
     }
+
+
+
+
 
 }
