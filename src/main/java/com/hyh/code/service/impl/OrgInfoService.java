@@ -1,11 +1,11 @@
 package com.hyh.code.service.impl;
 
 import com.hyh.code.mapper.OrgInfoMapper;
-import com.hyh.code.pojo.BaseParams;
 import com.hyh.code.pojo.OrgInfo;
 import com.hyh.code.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -118,5 +118,50 @@ public class OrgInfoService {
     private String getSystemOrgId() {
         long no = 100000000+redisUtil.incr("orgCount", 1);
         return String.valueOf(no);
+    }
+
+
+
+    public boolean dealUpOrg(Map<String, String> map) {
+        try {
+            //删除原先数据
+            String org_id = map.get("org_id")+"";
+            orgInfoMapper.deleteUpOrg(org_id);
+
+            //判断是否存在设置的上级单位
+            if (!StringUtils.isEmpty(map.get("org_list"))){
+                String array[] = map.get("org_list").split(";");
+                for (int i=0;i<array.length;i++){
+                    orgInfoMapper.insertUpOrg(org_id,array[i]);
+                }
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+    public boolean dealLowOrg(Map<String, String> map) {
+        try {
+            //删除原先数据
+            String org_id = map.get("org_id")+"";
+            orgInfoMapper.deleteLowOrg(org_id);
+
+            //判断是否存在设置的上级单位
+            if (!StringUtils.isEmpty(map.get("org_list"))){
+                String array[] = map.get("org_list").split(";");
+                for (int i=0;i<array.length;i++){
+                    orgInfoMapper.insertLowOrg(org_id,array[i]);
+                }
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

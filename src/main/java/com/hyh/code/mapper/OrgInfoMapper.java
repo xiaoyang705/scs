@@ -19,4 +19,12 @@ public interface OrgInfoMapper extends IBaseMapper<OrgInfo> {
     List<Map<String,Object>> findLowOrg(@Param("org_id") String org_id);
 
     String findAreaName(@Param("area_id") String area_id);
+
+    void deleteUpOrg(@Param("org_id") String org_id);
+
+    void insertUpOrg(@Param("org_id") String org_id,@Param("up_org") String up_org);
+
+    void deleteLowOrg(@Param("org_id") String org_id);
+
+    void insertLowOrg(@Param("org_id") String org_id,@Param("low_org") String low_org);
 }

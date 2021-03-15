@@ -38,4 +38,20 @@
   <select id="findAreaName" resultType="java.lang.String" parameterType="string">
      select area_name from base_area where area_id=#{area_id}
   </select>
+
+  <delete id="deleteUpOrg" parameterType="string">
+      DELETE FROM org_content WHERE org_id=#{org_id}
+  </delete>
+
+  <insert id="insertUpOrg" parameterType="string">
+      INSERT INTO org_content(org_id,up_org_id) VALUES(#{org_id},#{up_org})
+  </insert>
+
+    <delete id="deleteLowOrg" parameterType="string">
+        DELETE FROM org_content WHERE up_org_id=#{org_id}
+    </delete>
+
+    <insert id="insertLowOrg" parameterType="string">
+        INSERT INTO org_content(org_id,up_org_id) VALUES(#{low_org},#{org_id})
+    </insert>
 </mapper>

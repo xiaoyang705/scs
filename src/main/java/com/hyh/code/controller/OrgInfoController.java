@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hyh.code.base.RetResponse;
 import com.hyh.code.base.RetResult;
-import com.hyh.code.pojo.BaseParams;
 import com.hyh.code.pojo.OrgInfo;
 import com.hyh.code.service.impl.OrgInfoService;
 import io.swagger.annotations.Api;
@@ -161,10 +160,19 @@ public class OrgInfoController {
     }
 
 
-
+    @ApiOperation(value = "设置单位上级单位")
+    @PostMapping("/dealUpOrg")
     public RetResult dealUpOrg(@RequestBody Map<String,String> map){
 
-        return RetResponse.makeOKRsp();
+        if (StringUtils.isEmpty(map.get("org_id"))) {
+            return RetResponse.makeErrRsp("单位不能为空!");
+        }
+
+        if(orgInfoService.dealUpOrg(map)){
+            return RetResponse.makeOKRsp();
+        }else{
+            return RetResponse.makeErrRsp("操作失败！");
+        }
     }
 
 
@@ -193,6 +201,19 @@ public class OrgInfoController {
 
 
 
+    @ApiOperation(value = "设置单位下级单位")
+    @PostMapping("/dealLowOrg")
+    public RetResult dealLowOrg(@RequestBody Map<String,String> map) {
 
+        if (StringUtils.isEmpty(map.get("org_id"))) {
+            return RetResponse.makeErrRsp("单位不能为空!");
+        }
+
+        if (orgInfoService.dealLowOrg(map)) {
+            return RetResponse.makeOKRsp();
+        } else {
+            return RetResponse.makeErrRsp("操作失败！");
+        }
+    }
 
 }
