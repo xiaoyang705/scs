@@ -18,4 +18,8 @@ public interface SysRoleMapper extends IBaseMapper<SysRole> {
     void deleteRoleFun(@Param(value = "role_id")Integer role_id);
 
     void insertRoleFun(@Param(value = "role_id") Integer role_id, @Param(value = "fun_id")String fun_id);
+
+    List<Integer> findSelectFun(@Param(value = "role_id")Integer id);
+
+    List<Map<String,Object>> findFunParentId(@Param(value = "fun_parent") Integer fun_parent);
 }

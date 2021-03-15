@@ -21,4 +21,25 @@
   <select id="login" resultType="com.hyh.code.pojo.SysUser">
     SELECT * from sys_user where login_name=#{login_name} and password=#{password}
   </select>
+
+
+  <select id="findAll" resultType="java.util.Map" parameterType="com.hyh.code.pojo.SysUser">
+
+    SELECT A.id,A.user_name,A.login_name,A.user_phone,A.user_email,A.user_status,A.org_id,A.role_id,
+     B.org_name,B.org_short_name,C.role_name FROM sys_user A
+    INNER JOIN org_info B ON B.org_id=A.org_id
+    INNER JOIN sys_role C ON C.id=A.role_id
+    where A.is_del=0
+    <if test="org_id!=null">
+      and A.org_id=#{org_id}
+    </if>
+    <if test="user_name!=null">
+      and A.user_name=#{user_name}
+    </if>
+    <if test="login_name!=null">
+      and A.login_name=#{login_name}
+    </if>
+  </select>
+
+
 </mapper>

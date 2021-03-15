@@ -5,6 +5,9 @@ import com.hyh.code.pojo.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Admin
  */
@@ -19,4 +22,5 @@ public interface SysUserMapper extends IBaseMapper<SysUser> {
     SysUser login(@Param("login_name") String login_name, @Param("password") String password);
 
 
+    List<Map<String,Object>> findAll(SysUser sysUser);
 }

@@ -62,4 +62,29 @@ public class SysRoleService {
             return false;
         }
     }
+
+    public List<Integer> findSelectFun(Integer id) {
+
+        return sysRoleMapper.findSelectFun(id);
+    }
+
+    public List<Map<String,Object>> findAllFunTree() {
+
+        //获取所有第一级
+        List<Map<String,Object>> firstList = sysRoleMapper.findFunParentId(0);
+        for (int i=0;i<firstList.size();i++){
+            Map<String,Object> t1 = firstList.get(i);
+            //获取下一级
+            List<Map<String,Object>> secondList = sysRoleMapper.findFunParentId(Integer.parseInt(t1.get("fun_id")+""));
+            for (int j=0;j<secondList.size();j++){
+                Map<String,Object> t2 = secondList.get(j);
+                //获取下一级
+                List<Map<String,Object>> thirdList = sysRoleMapper.findFunParentId(Integer.parseInt(t2.get("fun_id")+""));
+                t2.put("childList", thirdList);
+            }
+            t1.put("childList", secondList);
+        }
+
+        return firstList;
+    }
 }

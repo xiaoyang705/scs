@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -106,6 +107,30 @@ public class SysRoleController {
         }else{
             return RetResponse.makeErrRsp("操作失败！");
         }
+    }
+
+
+
+
+    @ApiOperation(value = "设置角色授权界面获取")
+    @PostMapping("/showRoleFun/{id}")
+    public RetResult showRoleFun(@PathVariable("id") Integer id){
+
+        if (StringUtils.isEmpty(id)) {
+            return RetResponse.makeErrRsp("参数不能为空!");
+        }
+
+        //获取当前角色设置的所有权限
+        List<Integer> selectList = sysRoleService.findSelectFun(id);
+
+        Map<String,Object> data = new HashMap<String, Object>();
+        data.put("selectList", selectList);
+
+        //获取所有的权限树
+        List<Map<String,Object>> funList = sysRoleService.findAllFunTree();
+        data.put("funList", funList);
+
+        return RetResponse.makeOKRsp(data);
     }
 
 
