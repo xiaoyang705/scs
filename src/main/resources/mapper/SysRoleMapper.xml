@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyh.code.mapper.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.hyh.code.pojo.SysRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_name" jdbcType="VARCHAR" property="role_name" />
+    <result column="role_home" jdbcType="VARCHAR" property="role_home" />
+    <result column="org_id" jdbcType="VARCHAR" property="org_id" />
+    <result column="role_desc" jdbcType="VARCHAR" property="role_desc" />
+    <result column="role_status" jdbcType="INTEGER" property="role_status" />
+    <result column="is_del" jdbcType="INTEGER" property="is_del" />
+  </resultMap>
+
+
+  <select id="findAll" resultType="java.util.Map" parameterType="com.hyh.code.pojo.SysRole">
+    select A.id,A.role_name,A.role_home,A.org_id,A.role_desc,A.role_status,B.org_name,B.org_short_name
+    from sys_role A
+    inner join org_info B ON B.org_id=A.org_id and B.is_del=0
+    where A.is_del=0
+    <if test="org_id!=null">
+      and A.org_id=#{org_id}
+    </if>
+    <if test="role_name!=null">
+      and A.role_home CONCAT('%',CONCAT(#{role_name},'%'))
+    </if>
+  </select>
+
+
+  <select id="findByRecId" resultType="java.util.Map" parameterType="Integer">
+    select A.id,A.role_name,A.role_home,A.org_id,A.role_desc,A.role_status,B.org_name,B.org_short_name
+    from sys_role A
+    inner join org_info B ON B.org_id=A.org_id and B.is_del=0
+    where A.is_del=0 and A.id=#{id}
+  </select>
+
+
+  <delete id="deleteRoleFun" parameterType="Integer">
+    DELETE FROM sys_funs_role where role_id=#{role_id}
+  </delete>
+
+
+  <insert id="insertRoleFun">
+    INSERT INTO sys_funs_role(role_id,fun_id) VALUES (#{role_id},#{fun_id})
+  </insert>
+
+</mapper>
